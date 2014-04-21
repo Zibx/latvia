@@ -1,3 +1,11 @@
 .hidden {
     display: none
 }
+
+body > header {
+    text-align: center;
+}
+
+body > footer {
+    text-align: center;
+}

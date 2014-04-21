@@ -32,13 +32,13 @@
 
 
 ::-moz-selection {
-    background: #FE57A1;
+    background: #29c7e4;
     color: white;
     text-shadow: none;
 }
 
 ::selection {
-    background: #FE57A1;
+    background: #29c7e4;
     color: white;
     text-shadow: none;
 }
