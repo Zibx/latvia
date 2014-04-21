@@ -1,7 +1,14 @@
-<div class="post">
-    <div class="post_content">{{text}}</div>
-    <div class="post_date">{{date}}</div>
-    <div class="post_user">{{user}}</div>
-    <div class="post_new_comments">{{newComments}}</div>
-    <div class="post_old_comments">{{oldComments}}</div>
-</div>
+<article class="post">
+    <div class="post-content">
+        <p>{{text}}</p>
+    </div>
+
+    <aside class="post-meta">
+        <span class="username">{{user}}</span>
+        <time class="post-date">{{date}}</time>
+        <span class="post-comments-count">
+            <span class="post-comments">{{oldComments}}</span> /
+            <span class="post-new-comments">{{newComments}}</span>
+        </span>
+    </aside>
+</article>
