@@ -743,7 +743,7 @@ Z = {
         }
     },
     observable: function( obj ){
-        Z.apply(obj, observable);
+        return Z.apply(obj, observable);
     },
     makeHash: function( arr, hash, hashVal ){
         var out = {}, i, item;
@@ -1036,54 +1036,6 @@ Z.storage = {
                 promise.args = [Z.storage[name]];
                 promise.done();
             });
-        },
-        projects: function( name ){
-            Z.query( 'project', 'list', void 0, function(data){
-                var promise = Z.storage[name];
-                Z.storage[name] = new storage(data.data);
-                Z.storage[name].addHash(['id','name']);
-                promise.args = [Z.storage[name]];
-                promise.done();
-            });
-        },
-        contacts: function( name ){
-            Z.storage.load('contactLists', function( store ){
-                var promise = Z.storage[name];
-                var data = [],
-                    wait = 0,
-                    finish = function(  ){
-                        Z.storage[name] = new storage(data);
-                        Z.storage[name].addHash(['phone','name', '_list']);
-                        promise.done();
-                    };
-
-                store.data.forEach( function( list ){
-                    if( list.length ){
-                        wait++;
-                        Z.query('contactList', 'get', {id: list.id}, function( contacts ){
-                            data = data.concat(contacts.data);
-                            contacts.data.forEach( function( contact ){
-                                contact._list = list.id;
-                            });
-                            wait--;
-                            !wait && finish();
-                        });
-                    }
-                    !wait && finish();
-                });
-
-            });
-        },
-        contactLists: function( name ){
-
-            Z.query( 'contactList', 'list', void 0, function(data){
-                var promise = Z.storage[name];
-                Z.storage[name] = new storage(data.data);
-                Z.storage[name].addHash(['id','name']);
-                promise.args = [Z.storage[name]];
-                promise.done();
-                Z.storage.load('contacts');
-            });
         }
     }
 };
@@ -1168,8 +1120,8 @@ Z.loadTpls = function( arr, fn ){
     if( notLoadedList.length )
         Z.query('web','getTpls', {name: notLoadedList}, function( data ){
             try{
-                eval(data.data);
-            }catch(e){};
+                eval(data);
+            }catch(e){}
             notLoadedList.forEach( function( name ){
                 loaded[name] = true;
             });

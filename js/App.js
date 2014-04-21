@@ -57,7 +57,7 @@
             Z.doAfter(
                 function( callback ){
                     if( request.cookies.u ){
-                        api.authorize.getUserByHash({hash:request.cookies.u}, function( user ){
+                        api.auth.getUserBySession({session: request.cookies.u}, function( user ){
                             //console.log(user);
                             data.user = user;
                             callback();

@@ -40,8 +40,8 @@ var connection = mysql.createConnection({
 connection.connect();
 GLOBAL.db = connection;
 
-
-
+//db.query('INSERT INTO blog SET ?', {creator: 1, name: 'Латвия', shortName: 'main', equalVote: false, voteMul: 1})
+//console.log(db.query('INSERT INTO post SET ?', {creator: 1, blog: '1', content: 'Первейший пост!\nЛатвия — священная наша держава.', creation: (+new Date())/1000,private: 0} ).sql);
 
 var express = require('express');
 var app = express();
@@ -59,7 +59,8 @@ var Context = GLOBAL.Context = function( cfg ){
 Context.prototype = {t: t};
 app.get('/', function(req, res){
     debug && tpl.loadAll('views');
-    api.authorize.getUserByHash({hash:req.cookies.u}, function( user ){
+    api.auth.getUserBySession({session: req.cookies.u}, function( user ){
+        console.log(user);
         var out;
         var context = new Context({
             user: user,
@@ -69,15 +70,15 @@ app.get('/', function(req, res){
         context.wFactory.exportTpl('bottomMenu');
 
         context.wFactory.exportTpl('subMenu');
-        if( user )//{
-            context.wFactory.js += 'Z.user.data='+JSON.stringify(user)+';';
+
+        context.wFactory.js += 'Z.user='+(user?JSON.stringify(user):'false')+';';
 
         var outData = {
-            title: 'Billingrad',
+            title: 'Latvia',
             content: ''//vm.authorize(context)
         };
         outData.js = context.wFactory.js;
-        out = t.mainTemplate(outData);
+        out = t.main(outData);
         //}
         res.send( out );
     });
