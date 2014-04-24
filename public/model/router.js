@@ -10,7 +10,9 @@
         Z.currentHash = data;
 
         !data[0] && (data[0] = Z.user?'blog':'login');
-
+        if( data[data.length - 2] === 'post' ){
+            data = [data[data.length - 2], data[data.length - 3] || 'main', data[data.length - 1]];
+        }
         if( Z.controller[data[0]] ){
             if(currentHash !== data[0]){
 

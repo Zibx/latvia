@@ -9,7 +9,6 @@
         }
         var data = obj.data,
             url = '/'+obj.url,
-            state = obj.state,
             errorFn = obj.error || errorHandler;
         console.info('QUERY api '+ obj.url);
 

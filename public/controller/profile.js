@@ -3,5 +3,8 @@ Z.controller.profile = Z.observable({
     init: function(){
         document.body.innerHTML = DOM.tplRenderer('profile')( Z.user );
 
+    },
+    router: function( route ){
+        console.log(route);
     }
 });

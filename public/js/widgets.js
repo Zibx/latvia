@@ -987,6 +987,17 @@ Z.UUID = {
         };
     })()
 };
+Z.simpleTpl = function( text, replacements ){
+
+        var out = text;
+        var matches = out.match(/({{([^{}]*)}})/gi);
+        for (var i = 0, _i = matches.length; i < _i; i++) {
+            var varName = matches[ i ].substr(2, matches[ i ].length - 4);
+            out = out.replace( new RegExp( matches[ i ] ,'gi'), replacements[ varName ] || '' );
+        }
+        return out;
+
+};
 Z.validate = {
     email: function(  ){
 

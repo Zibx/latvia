@@ -650,7 +650,21 @@
             }
             return a;
         },
-
+        any: function( arr ){
+            return arr[(Math.random()*arr.length)|0];
+        },
+        sqlDate: (function(  ){
+            var pad = function( data ){
+                return data.toString().length === 1 ? '0'+data : data;
+            };
+            return function( date ){
+                if( !(date instanceof Date) ){
+                    date = new Date(date);
+                }
+                return date.getFullYear()+'-'+ pad(date.getMonth()+1)+'-'+ pad(date.getDate())+' '+
+                    pad(date.getHours())+':'+ pad(date.getMinutes())+':'+pad(date.getSeconds());
+            };
+        })(),
         /*
          Function: isArray
          Test is argument an Array
