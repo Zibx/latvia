@@ -6,6 +6,11 @@ body > header {
     text-align: center;
 }
 
+.content {
+    position: relative;
+    min-height: 100px;
+}
+
 body > footer {
     text-align: center;
 }

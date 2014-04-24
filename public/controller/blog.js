@@ -4,9 +4,10 @@ Z.controller.blog = Z.observable({
         document.body.innerHTML = DOM.tplRenderer('mainLayout')();
 
         var els = this.els = {};
-        ['left_menu', 'top', 'content', 'bottom'].forEach( function( name ){
+        ['content'].forEach( function( name ){
             els[name] = document.querySelector('.'+name);
         });
+
         this.buildNewPostForm();
         Z.query('blog','getGreeting',{},function(greet){
             els.top.innerHTML = DOM.tplRenderer('greeting')({
@@ -56,7 +57,7 @@ Z.controller.blog = Z.observable({
         return obj;
     },
     router: function( route ){
-
+        var spinner = new Spinner(Cfg.spinner);
         this.route = route;
         var page = route[route.length-1]| 0,
             blog = route[route.length-2] || 'main';
